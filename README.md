@@ -2,6 +2,15 @@
 
 **Battle Shapers** 비공식 한글패치 — 한패모 (hanpaemo)
 
+## 스크린샷
+
+![메인 메뉴](assets/1.jpg)
+![게임플레이](assets/2.jpg)
+![UI](assets/3.jpg)
+![스킬](assets/4.jpg)
+![대사](assets/5.jpg)
+![아이템](assets/6.jpg)
+
 ## 설치 방법
 
 > **사전 준비**: [BepInEx 5 (x64)](https://github.com/BepInEx/BepInEx/releases) 가 게임 폴더에 설치되어 있어야 합니다.
