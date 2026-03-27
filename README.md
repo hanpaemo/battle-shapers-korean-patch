@@ -50,7 +50,7 @@
 **2단계 - 압축 해제**
 게임 설치 폴더에 **덮어쓰기**로 압축 해제
 ```
-기본 경로: D:\SteamLibrary\steamapps\common\BattleShapers
+기본 경로: C:\Program Files (x86)\Steam\steamapps\common\BattleShapers
 ```
 
 **3단계 - 게임 실행**
@@ -84,7 +84,7 @@ A. ZIP 파일을 다시 압축 해제해주세요. `BepInEx/config/BepInEx.cfg` 
 
 **Q. 한글이 □□로 표시돼요**
 
-A. `BepInEx/plugins/NotoSansKR-Regular.otf` 폰트 파일이 있는지 확인해주세요.
+A. `BepInEx/plugins/` 폴더에 폰트 파일(.otf)이 있는지 확인해주세요. 패치 ZIP을 다시 압축 해제하면 해결됩니다.
 
 **Q. 게임 업데이트 후에도 번역이 유지되나요?**
 
