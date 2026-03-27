@@ -1,4 +1,4 @@
-# Battle Shapers 한글패치 v1.0
+# Battle Shapers 한글패치 v2.0.0
 
 > 공식 한국어 지원이 없는 Battle Shapers의 비공식 한글패치입니다.
 
@@ -18,12 +18,9 @@
 
 | 분류 | 항목 수 | 상태 |
 |------|--------|------|
-| 대사 (Dialogue) | 4,200+ | ✅ 완료 |
-| UI / 메뉴 | 1,500+ | ✅ 완료 |
-| 아이템 / 스킬 설명 | 800+ | ✅ 완료 |
-| 튜토리얼 | 300+ | ✅ 완료 |
-| 기타 (로어, 통계 등) | 276 | ✅ 완료 |
-| **합계** | **7,076개** | ✅ |
+| 대사 (Dialogue) | 7,058 | ✅ 완료 |
+| UI / 메뉴 (LocSheet) | 3,968 | ✅ 완료 |
+| **합계** | **11,026개** | ✅ |
 
 ### 주요 용어
 
@@ -36,6 +33,7 @@
 | Reflect | 반사 | 투사체 반사 |
 | Outburst | 아웃버스트 | 코어 어빌리티 |
 | Meemo | 미모 | 아군 로봇 동료 |
+| New Run | 새 시작 | 메인 메뉴 |
 
 ---
 
@@ -43,7 +41,6 @@
 
 ### 필요 조건
 - PC (Windows) Steam 버전
-- [BepInEx 5 (x64)](https://github.com/BepInEx/BepInEx/releases) 설치 필요
 
 ### 설치 순서
 
@@ -57,44 +54,70 @@
 ```
 
 **3단계 - 게임 실행**
-게임을 실행하고 **설정 → 언어 → Chinese Traditional (繁體中文)** 선택
-> ⚠️ 이 패치는 중국어 번체 슬롯을 한국어로 대체합니다. "繁體中文"을 선택하면 한국어가 표시됩니다.
+게임을 실행하면 자동으로 한국어가 표시됩니다.
+> v2.0부터 언어 설정과 무관하게 한국어가 표시됩니다. 별도의 언어 변경이 필요 없습니다.
 
 ### 파일 구조
 ```
 BattleShapers/
-  BattleShapers_Data/
-    resources.assets          ← 한글 번역 데이터 (zht 슬롯 대체)
+  winhttp.dll                              ← BepInEx 로더
+  doorstop_config.ini                      ← BepInEx 설정
   BepInEx/
+    config/
+      BepInEx.cfg                          ← HideManagerGameObject 설정
+    core/                                  ← BepInEx 5 코어
     plugins/
-      Hanpaemo.BattleShapers.KoreanPatch.dll   ← 한글 폰트 패치 플러그인
-      NotoSansKR-Regular.otf                    ← 한국어 폰트
+      Hanpaemo.BattleShapers.KoreanPatch.dll   ← 한글패치 플러그인 v2.0.0
+      NotoSansKR-Regular.otf                    ← 한국어 폰트 (잘난체 고딕)
+    Translation/
+      ko/BattleShapers/
+        localization-ko.txt                ← 한국어 번역 데이터 (7,058키)
 ```
 
 ---
 
 ## ❓ 자주 묻는 질문
 
-**Q. 게임 업데이트 후 번역이 안 돼요**
+**Q. 게임이 로딩 화면에서 멈춰요**
 
-A. 게임 업데이트 시 `resources.assets`가 초기화됩니다. 패치를 다시 설치해주세요.
+A. ZIP 파일을 다시 압축 해제해주세요. `BepInEx/config/BepInEx.cfg` 파일이 누락되면 이 문제가 발생할 수 있습니다.
 
-**Q. 한글이 깨져서 표시돼요**
+**Q. 한글이 □□로 표시돼요**
 
-A. BepInEx 5가 올바르게 설치되어 있는지 확인해주세요. 폰트 패치 플러그인이 BepInEx를 통해 로드됩니다.
+A. `BepInEx/plugins/NotoSansKR-Regular.otf` 폰트 파일이 있는지 확인해주세요.
 
-**Q. Steam 파일 무결성 검사 후 번역이 사라졌어요**
+**Q. 게임 업데이트 후에도 번역이 유지되나요?**
 
-A. 무결성 검사는 패치 파일을 원본으로 되돌리므로, 검사 후 패치를 다시 설치하시면 됩니다.
+A. v2.0부터 게임 파일을 직접 수정하지 않으므로, 게임 업데이트 후에도 패치가 유지됩니다. Steam 무결성 검사와도 충돌하지 않습니다.
+
+**Q. 다른 언어로 플레이하고 싶어요**
+
+A. 패치가 설치된 상태에서는 모든 언어 설정에서 한국어가 표시됩니다. 원래 언어로 돌아가려면 `BepInEx` 폴더와 `winhttp.dll`, `doorstop_config.ini`를 삭제하세요.
 
 ---
 
 ## 🔧 기술 정보
 
-- **번역 방식**: resources.assets 내 zht(중국어 번체) 로컬라이제이션 슬롯을 한국어로 대체
-- **폰트**: Noto Sans KR (BepInEx Harmony 패치로 런타임 주입)
-- **프레임워크**: BepInEx 5 + Harmony
-- **번역 파일 위치**: `BattleShapers_Data/resources.assets` (path_id 352)
+- **번역 방식**: BepInEx Harmony 패치로 `LocalizationManager.GetLocalizedText`를 런타임에 가로채 한국어 반환 (게임 파일 무수정)
+- **폰트**: 잘난체 고딕 (BepInEx 플러그인이 TMP 폴백 폰트로 런타임 주입)
+- **프레임워크**: BepInEx 5.4.23.2 + Harmony
+- **번역 파일**: `BepInEx/Translation/ko/BattleShapers/localization-ko.txt`
+
+---
+
+## 📝 변경 이력
+
+### v2.0.0 (2026-03-28)
+- 런타임 텍스트 가로채기 방식으로 전환 (resources.assets 수정 불필요)
+- 게임 업데이트/무결성 검사와 충돌 없음
+- BepInEx 올인원 패키지로 변경 (별도 BepInEx 설치 불필요)
+- 폰트 변경: Noto Sans KR → 잘난체 고딕
+- "새 런" → "새 시작" 용어 수정
+- 번역 항목 수 증가: 7,076 → 11,026개
+
+### v1.0 (2026-03-13)
+- 최초 배포
+- resources.assets 내 zht 슬롯 대체 방식
 
 ---
 
